@@ -1,0 +1,17 @@
+import os
+import re
+
+# specify the folder path and the pattern for the new file names
+folder_path = "/path/to/folder"
+pattern = "Movie_{:03d}.mp4"  # replace with your desired pattern
+
+# loop through each file in the folder
+for file_name in os.listdir(folder_path):
+    # check if the file is a movie file and contains a number
+    if file_name.endswith(".mp4") and re.search(r"\d+", file_name):
+        # extract the number from the file name using regular expression
+        number = int(re.findall(r"\d+", file_name)[0])
+        # construct the new file name using the pattern
+        new_name = pattern.format(number)
+        # rename the file
+        os.rename(os.path.join(folder_path, file_name), os.path.join(folder_path, new_name))
